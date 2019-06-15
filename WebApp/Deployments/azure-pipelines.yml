@@ -1,0 +1,45 @@
+﻿# ASP.NET Core - CI/CD
+# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
+
+trigger:
+- master
+
+variables:
+  BuildConfiguration: 'release'
+  BuildPlatform: 'any cpu'
+
+jobs:
+- job: 'BuildWebApp'
+  pool:
+    vmImage: 'vs2017-win2016'
+
+  steps:
+  # Restore dependencies
+  - task: NuGetToolInstaller@0
+    displayName: 'Acquire NuGet'
+    inputs:
+      versionSpec: 4.4.1
+    
+  - task: NuGetCommand@2
+    displayName: 'Restore NuGet packages'
+    inputs:
+      restoreSolution: '**\*.sln'
+
+  # Build your project and publish artifacts
+  - task: VSBuild@1
+    displayName: 'Build solution'
+    inputs:
+      solution: '**\*.sln'
+      msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(Build.ArtifactStagingDirectory)\\"'
+      platform: '$(BuildPlatform)'
+      configuration: '$(BuildConfiguration)'
+   
+  # Run your tests
+  - task: VSTest@2
+    displayName: 'VsTest - testAssemblies'
+    inputs:
+      testAssemblyVer2: |
+       **\$(BuildConfiguration)\*test*.dll
+       !**\obj\**
+      platform: '$(BuildPlatform)'
+      configuration: '$(BuildConfiguration)'

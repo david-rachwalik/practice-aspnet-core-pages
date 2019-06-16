@@ -10,4 +10,4 @@ Current Technologies Used:
 - Azure (<a href="https://docs.microsoft.com/en-us/azure/devops/boards">Planning</a>,
 	<a href="https://docs.microsoft.com/en-us/azure/devops/pipelines">CI</a>/<a href="https://docs.microsoft.com/en-us/azure/azure-resource-manager/">CD</a>,
 	<a href="https://docs.microsoft.com/en-us/azure/devops/repos/git">Git</a>,
-	<a href="https://docs.microsoft.com/en-us/azure/app-service/overview"WebApp</a>)
+	<a href="https://docs.microsoft.com/en-us/azure/app-service/overview">WebApp</a>)

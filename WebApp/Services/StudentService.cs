@@ -10,7 +10,6 @@ namespace WebApp.Services
 {
     public interface IStudentService
     {
-        Task<Student> ReadAsync();
         Task<Student> ReadAsync(int? id);
         Task<IList<Student>> ReadListAsync();
         Task<int> CreateAsync(Student student);
@@ -21,7 +20,6 @@ namespace WebApp.Services
 
     public class StudentService : IStudentService
     {
-        private const int testId = 1;
         private readonly SchoolContext _context;
 
         public StudentService(SchoolContext context)
@@ -43,10 +41,6 @@ namespace WebApp.Services
             if (id == null) { return null; }
             Student student = await _context.Student.FirstOrDefaultAsync(m => m.Id == id);
             return await Task.FromResult(student);
-        }
-        public async Task<Student> ReadAsync()
-        {
-            return await Task.FromResult(await ReadAsync(testId));
         }
 
         public async Task<IList<Student>> ReadListAsync()

@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using WebApp.Data;
+using WebApp.Extensions;
 
 namespace WebApp
 {
@@ -41,6 +42,7 @@ namespace WebApp
             services.AddDbContext<SchoolContext>(options =>
                 options.UseSqlite(Configuration.GetConnectionString("DevConnection")));
 
+            services.AddDataServices();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

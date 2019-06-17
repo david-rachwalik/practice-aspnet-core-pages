@@ -62,9 +62,12 @@ namespace WebApp.Services
 
         public async Task<int> CreateAsync(Student student)
         {
+            // Business rules
+            student.EnrollmentDate = DateTime.UtcNow;
+
             _context.Student.Add(student);
             int changes = await _context.SaveChangesAsync();
-
+            
             return await Task.FromResult(changes);
         }
 

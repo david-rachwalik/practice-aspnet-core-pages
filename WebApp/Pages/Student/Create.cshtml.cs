@@ -37,7 +37,7 @@ namespace WebApp.Pages.Student
 
             //_context.Student.Add(Student);
             //await _context.SaveChangesAsync();
-            await _studentService.OnPostAsync(Student);
+            await _studentService.CreateAsync(Student);
 
             return RedirectToPage("./Index");
         }

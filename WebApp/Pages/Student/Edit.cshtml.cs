@@ -32,7 +32,7 @@ namespace WebApp.Pages.Student
             if (id == null) { return NotFound(); }
 
             //Student = await _context.Student.FirstOrDefaultAsync(m => m.Id == id);
-            Student = await _studentService.OnGetAsync(id);
+            Student = await _studentService.ReadAsync(id);
 
             if (Student == null) { return NotFound(); }
             return Page();
@@ -43,7 +43,7 @@ namespace WebApp.Pages.Student
             if (!ModelState.IsValid) { return Page(); }
 
             //_context.Attach(Student).State = EntityState.Modified;
-            await _studentService.OnPutAsync(Student);
+            await _studentService.UpdateAsync(Student);
             
             return RedirectToPage("./Index");
         }

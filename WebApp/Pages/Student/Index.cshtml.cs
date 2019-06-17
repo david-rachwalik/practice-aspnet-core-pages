@@ -28,7 +28,7 @@ namespace WebApp.Pages.Student
         public async Task OnGetAsync()
         {
             //Student = await _context.Student.ToListAsync();
-            Student = await _studentService.OnGetListAsync();
+            Student = await _studentService.ReadListAsync();
         }
     }
 }

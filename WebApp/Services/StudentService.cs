@@ -10,12 +10,12 @@ namespace WebApp.Services
 {
     public interface IStudentService
     {
-        Task<Student> OnGetAsync();
-        Task<Student> OnGetAsync(int? id);
-        Task<IList<Student>> OnGetListAsync();
-        Task<int> OnPostAsync(Student student);
-        Task<int> OnPullAsync(int? id);
-        Task<int> OnPutAsync(Student student);
+        Task<Student> ReadAsync();
+        Task<Student> ReadAsync(int? id);
+        Task<IList<Student>> ReadListAsync();
+        Task<int> CreateAsync(Student student);
+        Task<int> DeleteAsync(int? id);
+        Task<int> UpdateAsync(Student student);
     }
 
 
@@ -38,18 +38,18 @@ namespace WebApp.Services
         
 
         // Public Methods
-        public async Task<Student> OnGetAsync(int? id)
+        public async Task<Student> ReadAsync(int? id)
         {
             if (id == null) { return null; }
             Student student = await _context.Student.FirstOrDefaultAsync(m => m.Id == id);
             return await Task.FromResult(student);
         }
-        public async Task<Student> OnGetAsync()
+        public async Task<Student> ReadAsync()
         {
-            return await Task.FromResult(await OnGetAsync(testId));
+            return await Task.FromResult(await ReadAsync(testId));
         }
 
-        public async Task<IList<Student>> OnGetListAsync()
+        public async Task<IList<Student>> ReadListAsync()
         {
             IList<Student> students = new List<Student>();
 
@@ -60,7 +60,7 @@ namespace WebApp.Services
             return await Task.FromResult(students);
         }
 
-        public async Task<int> OnPostAsync(Student student)
+        public async Task<int> CreateAsync(Student student)
         {
             _context.Student.Add(student);
             int changes = await _context.SaveChangesAsync();
@@ -68,7 +68,7 @@ namespace WebApp.Services
             return await Task.FromResult(changes);
         }
 
-        public async Task<int> OnPutAsync(Student student)
+        public async Task<int> UpdateAsync(Student student)
         {
             _context.Attach(student).State = EntityState.Modified;
             int changes = await _context.SaveChangesAsync();
@@ -76,10 +76,10 @@ namespace WebApp.Services
             return await Task.FromResult(changes);
         }
 
-        public async Task<int> OnPullAsync(int? id)
+        public async Task<int> DeleteAsync(int? id)
         {
             int changeCount = 0;
-            Student student = await OnGetAsync(id);
+            Student student = await ReadAsync(id);
 
             if (student != null)
             {

@@ -31,7 +31,7 @@ namespace WebApp.Pages.Student
             if (id == null) { return NotFound(); }
 
             //Student = await _context.Student.FirstOrDefaultAsync(m => m.Id == id);
-            Student = await _studentService.OnGetAsync(id);
+            Student = await _studentService.ReadAsync(id);
 
             if (Student == null) { return NotFound(); }
             return Page();
@@ -42,7 +42,7 @@ namespace WebApp.Pages.Student
             if (id == null) { return NotFound(); }
 
             //Student = await _context.Student.FindAsync(id);
-            await _studentService.OnPullAsync(id);
+            await _studentService.DeleteAsync(id);
 
             //if (Student != null)
             //{

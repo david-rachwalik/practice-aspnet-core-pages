@@ -30,7 +30,7 @@ namespace WebApp.Pages.Student
             if (id == null) { return NotFound(); }
 
             //Student = await _context.Student.FirstOrDefaultAsync(m => m.Id == id);
-            Student = await _studentService.OnGetAsync(id);
+            Student = await _studentService.ReadAsync(id);
 
             if (Student == null) { return NotFound(); }
             return Page();
